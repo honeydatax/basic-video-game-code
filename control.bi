@@ -141,6 +141,50 @@ public sub lbtxtCreate(c1 as control)
 	c1.redraw=procptr(lbtxtRedraw())
 end sub
 
+public sub inputRedraw(c1 as control)
+	dim xx as integer
+	dim yy as integer
+	dim p as integer
+	view (c1.x,c1.y)-(c1.x+c1.ww,c1.y+c1.hh)
+	window screen (0,0)-(c1.w,c1.h)
+	line c1.dc,(0,0)-(c1.w-1,c1.h-1),c1.bcolor,bf
+	line c1.dc,(0,0)-(c1.w-1,c1.h-1),c1.colors,b
+	draw string c1.dc,(5,5),c1.caption+"|",c1.colors
+	for yy=c1.h-1 to 0 step -1
+		for xx=c1.w-1 to 0 step -1
+			p=(point(xx,yy,c1.dc))
+			if p<>0 then line(xx-1,yy-1)-(xx,yy),p,bf
+		next
+	next
+	view (0,0)-(639,479)
+	window screen (0,0)-(639,479)
+end sub
+
+public sub oninputCheck(c1 as control)
+	dim keys as integer
+	dim xx as integer
+	dim yy as integer
+	dim bb as integer
+	dim res as integer
+	while keys<>13
+		keys=asc(inkey())
+		if keys<>0 then
+			if keys=8 then
+				if len(c1.caption)>0 then c1.caption=mid(c1.caption,1,len(c1.caption)-1)
+			else
+				c1.caption=c1.caption+chr(keys)
+			end if
+			c1.redraw(c1)
+		end if
+	wend
+end sub 
+
+public sub inputCreate(c1 as control)
+	c1.dc=imagecreate(c1.w,c1.h,0,4)
+	c1.on_check=procptr(oninputcheck())
+	c1.redraw=procptr(inputRedraw())
+end sub
+
 public sub buttonUp()
 	dim xx as integer
 	dim yy as integer
