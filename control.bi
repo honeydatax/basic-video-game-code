@@ -105,12 +105,14 @@ end sub
 public sub lbtxtRedraw(c1 as control)
 	dim xx as integer
 	dim yy as integer
-	view (c1.x,c1.y)-(c1.x+c1.ww,c1.y+c1.hh),c1.bcolor
+	dim p as integer
+	view (c1.x,c1.y)-(c1.x+c1.ww,c1.y+c1.hh)
 	window screen (0,0)-(c1.w,c1.h)
 	
 	for yy=c1.h-1 to 0 step -1
 		for xx=c1.w-1 to 0 step -1
-			line(xx-1,yy-1)-(xx,yy),(point(xx,yy,c1.dc)),bf
+			p=(point(xx,yy,c1.dc))
+			if p<>0 then line(xx-1,yy-1)-(xx,yy),p,bf
 		next
 	next
 	view (0,0)-(639,479)
@@ -131,7 +133,7 @@ public sub onlbtxtCheck(c1 as control)
 end sub 
 
 public sub lbtxtCreate(c1 as control)
-	c1.dc=imagecreate(c1.w,c1.h)
+	c1.dc=imagecreate(c1.w,c1.h,0,4)
 	line c1.dc,(0,0)-(c1.w-1,c1.h-1),c1.bcolor,bf
 	line c1.dc,(0,0)-(c1.w-1,c1.h-1),c1.colors,b
 	draw string c1.dc,(5,5),c1.caption,c1.colors

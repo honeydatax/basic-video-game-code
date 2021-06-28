@@ -19,7 +19,7 @@ label1.h=30
 label1.ww=141
 label1.hh=31
 label1.colors=white
-label1.bcolor=pink
+label1.bcolor=black
 label1.caption="hello world..."
 lbtxtCreate label1
 label1.redraw(label1)
@@ -30,7 +30,7 @@ for n=0 to 16
 	label1.ww=label1.ww+(label1.ww/10)
 	label1.hh=label1.hh+(label1.hh/10)
 	sleep 800
-	line (0,0)-(639,479),label1.bcolor,bf
+	line (0,0)-(639,479),pink,bf
 next
 
 	destroydc(label1.dc)
