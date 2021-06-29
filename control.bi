@@ -235,6 +235,50 @@ end sub
 
 
 
+public sub otxtdrwRedraw(c1 as control)
+	put (c1.x,c1.y),c1.dc2,or
+end sub
+
+public sub otxtdrwCheck(c1 as control)
+	dim xx as integer
+	dim yy as integer
+	dim bb as integer
+	dim res as integer
+	res=getmouse(xx,yy,,bb)
+	if bb=1 then
+		if xx>c1.x and yy>c1.y and xx<c1.x+c1.ww and yy<c1.y+c1.hh then
+			c1.on_click()
+		end if
+	end if
+end sub 
+
+public sub otxtdrwCreate(c1 as control)
+	dim xx as integer
+	dim yy as integer
+	dim p as integer
+	dim scalex as integer
+	dim scaley as integer
+	dim x as integer
+	c1.dc=imagecreate(c1.w,c1.h,0,4)
+	c1.dc2=imagecreate(c1.ww,c1.hh,0,4)
+	scalex=c1.ww/c1.w
+	scaley=c1.ww/c1.w
+	draw string c1.dc,(5,5),c1.caption,c1.colors
+	for yy=c1.h-1 to 0 step -1
+		for xx=c1.w-1 to 0 step -1
+			p=(point(xx,yy,c1.dc))
+			if p<>0 then line c1.dc2,(xx*scalex,yy*scaley)-((xx+1)*scalex,(yy+1)*scaley),p,bf
+		next
+	next
+	for xx=0 to c1.ww step c1.avalue
+		line c1.dc2,(xx,0)-(xx+c1.avalue,c1.hh),0
+		line c1.dc2,(xx,0)-(xx-c1.avalue,c1.hh),0
+	next 
+	c1.on_check=procptr(otxtdrwcheck())
+	c1.redraw=procptr(otxtdrwRedraw())
+end sub
+
+
 
 
 
