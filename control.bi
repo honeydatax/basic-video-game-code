@@ -185,6 +185,58 @@ public sub inputCreate(c1 as control)
 	c1.redraw=procptr(inputRedraw())
 end sub
 
+
+
+public sub txtdrwRedraw(c1 as control)
+	dim xx as integer
+	dim yy as integer
+	dim p as integer
+	view (c1.x,c1.y)-(c1.x+c1.ww,c1.y+c1.hh)
+	window screen (0,0)-(c1.w,c1.h)
+	
+	for yy=c1.h-1 to 0 step -1
+		for xx=c1.w-1 to 0 step -1
+			p=(point(xx,yy,c1.dc))
+			if p<>0 then line(xx-1,yy-1)-(xx,yy),p,bf
+		next
+	next
+	view (0,0)-(639,479)
+	window screen (0,0)-(639,479)
+end sub
+
+public sub txtdrwCheck(c1 as control)
+	dim xx as integer
+	dim yy as integer
+	dim bb as integer
+	dim res as integer
+	res=getmouse(xx,yy,,bb)
+	if bb=1 then
+		if xx>c1.x and yy>c1.y and xx<c1.x+c1.ww and yy<c1.y+c1.hh then
+			c1.on_click()
+		end if
+	end if
+end sub 
+
+public sub txtdrwCreate(c1 as control)
+	dim x as integer
+	c1.dc=imagecreate(c1.w,c1.h,0,4)
+	draw string c1.dc,(5,5),c1.caption,c1.colors
+	for x=0 to c1.w step c1.avalue
+		line c1.dc,(x,0)-(x,c1.h),0
+	next
+	for x=0 to c1.h step c1.avalue
+		line c1.dc,(0,x)-(c1.w,x),0
+	next
+	c1.on_check=procptr(txtdrwcheck())
+	c1.redraw=procptr(txtdrwRedraw())
+end sub
+
+
+
+
+
+
+
 public sub buttonUp()
 	dim xx as integer
 	dim yy as integer
