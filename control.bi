@@ -19,6 +19,7 @@ public type control
 	names as string
 	count as integer
 	dc as any ptr
+	dc2 as any ptr
 	on_check as sub(as control)
 	on_checks as sub(()as control)
 	on_click as sub
@@ -188,20 +189,7 @@ end sub
 
 
 public sub txtdrwRedraw(c1 as control)
-	dim xx as integer
-	dim yy as integer
-	dim p as integer
-	view (c1.x,c1.y)-(c1.x+c1.ww,c1.y+c1.hh)
-	window screen (0,0)-(c1.w,c1.h)
-	
-	for yy=c1.h-1 to 0 step -1
-		for xx=c1.w-1 to 0 step -1
-			p=(point(xx,yy,c1.dc))
-			if p<>0 then line(xx-1,yy-1)-(xx,yy),p,bf
-		next
-	next
-	view (0,0)-(639,479)
-	window screen (0,0)-(639,479)
+	put (c1.x,c1.y),c1.dc2,or
 end sub
 
 public sub txtdrwCheck(c1 as control)
@@ -218,15 +206,29 @@ public sub txtdrwCheck(c1 as control)
 end sub 
 
 public sub txtdrwCreate(c1 as control)
+	dim xx as integer
+	dim yy as integer
+	dim p as integer
+	dim scalex as integer
+	dim scaley as integer
 	dim x as integer
 	c1.dc=imagecreate(c1.w,c1.h,0,4)
+	c1.dc2=imagecreate(c1.ww,c1.hh,0,4)
+	scalex=c1.ww/c1.w
+	scaley=c1.ww/c1.w
 	draw string c1.dc,(5,5),c1.caption,c1.colors
-	for x=0 to c1.w step c1.avalue
-		line c1.dc,(x,0)-(x,c1.h),0
+	for yy=c1.h-1 to 0 step -1
+		for xx=c1.w-1 to 0 step -1
+			p=(point(xx,yy,c1.dc))
+			if p<>0 then line c1.dc2,(xx*scalex,yy*scaley)-((xx+1)*scalex,(yy+1)*scaley),p,bf
+		next
 	next
-	for x=0 to c1.h step c1.avalue
-		line c1.dc,(0,x)-(c1.w,x),0
-	next
+	for xx=0 to c1.ww step c1.avalue
+		line c1.dc2,(xx,0)-(xx,c1.hh),0
+	next 
+	for yy=0 to c1.hh step c1.avalue
+		line c1.dc2,(0,yy)-(c1.ww,yy),0
+	next 
 	c1.on_check=procptr(txtdrwcheck())
 	c1.redraw=procptr(txtdrwRedraw())
 end sub

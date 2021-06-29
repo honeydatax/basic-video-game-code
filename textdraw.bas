@@ -19,7 +19,7 @@ txtxsdrw1.hh=120
 txtxsdrw1.colors=white
 txtxsdrw1.bcolor=pink
 txtxsdrw1.caption="hello world..."
-txtxsdrw1.avalue=3
+txtxsdrw1.avalue=8
 txtdrwCreate txtxsdrw1
 txtxsdrw1.redraw(txtxsdrw1)
 txtxsdrw1.on_click=procptr(onexits)
