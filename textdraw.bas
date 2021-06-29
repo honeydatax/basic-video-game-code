@@ -19,7 +19,7 @@ txtxsdrw1.hh=120
 txtxsdrw1.colors=white
 txtxsdrw1.bcolor=pink
 txtxsdrw1.caption="hello world..."
-txtxsdrw1.avalue=8
+txtxsdrw1.avalue=6
 txtdrwCreate txtxsdrw1
 txtxsdrw1.redraw(txtxsdrw1)
 txtxsdrw1.on_click=procptr(onexits)
@@ -27,3 +27,4 @@ txtxsdrw1.on_click=procptr(onexits)
 
 sleep 10000
 	destroydc(txtxsdrw1.dc)
+	destroydc(txtxsdrw1.dc2)
