@@ -29,3 +29,4 @@ txtxsdrw1.on_click=procptr(onexits)
 sleep 10000
 	destroydc(txtxsdrw1.dc)
 	destroydc(txtxsdrw1.dc2)
+	destroydc(txtxsdrw1.dc3)
