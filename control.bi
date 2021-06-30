@@ -189,7 +189,7 @@ end sub
 
 
 public sub otxtdrwRedraw(c1 as control)
-	put (c1.x,c1.y),c1.dc2,or
+	'put (c1.x,c1.y),c1.dc2,or
 end sub
 
 public sub otxtdrwCheck(c1 as control)
@@ -235,7 +235,11 @@ public sub otxtdrwCreate(c1 as control)
 			p=(point(xx,yy,c1.dc2))
 			p2=(point(xx,yy,c1.dc3))
 			if p<>0 then 
-				if p2<>0 then pset(xx,yy),c1.value
+				if p2<>0 then 
+					pset (xx+c1.x,yy+c1.y),c1.value
+				else
+					pset (xx+c1.x,yy+c1.y),p
+				end if
 			end if
 		next
 	next
@@ -246,7 +250,7 @@ end sub
 
 
 public sub txtdrwRedraw(c1 as control)
-	put (c1.x,c1.y),c1.dc2,or
+	'put (c1.x,c1.y),c1.dc2,or
 end sub
 
 public sub txtdrwCheck(c1 as control)
@@ -295,7 +299,11 @@ public sub txtdrwCreate(c1 as control)
 			p=(point(xx,yy,c1.dc2))
 			p2=(point(xx,yy,c1.dc3))
 			if p<>0 then 
-				if p2<>0 then pset(xx,yy),c1.value
+				if p2<>0 then 
+					pset (xx+c1.x,yy+c1.y),c1.value
+				else
+					pset (xx+c1.x,yy+c1.y),p
+				end if
 			end if
 		next
 	next
