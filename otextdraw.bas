@@ -12,10 +12,10 @@ on_start color1
 
 txtxsdrw1.x=10
 txtxsdrw1.y=10
-txtxsdrw1.w=140
-txtxsdrw1.h=30
+txtxsdrw1.w=120
+txtxsdrw1.h=10
 txtxsdrw1.ww=630
-txtxsdrw1.hh=120
+txtxsdrw1.hh=300
 txtxsdrw1.colors=7
 txtxsdrw1.bcolor=pink
 txtxsdrw1.caption="hello world..."
@@ -24,7 +24,7 @@ txtxsdrw1.value=1
 otxtdrwCreate txtxsdrw1
 txtxsdrw1.redraw(txtxsdrw1)
 txtxsdrw1.on_click=procptr(onexits)
-	
+	txtxsdrw1.redraw(txtxsdrw1)
 
 sleep 10000
 	destroydc(txtxsdrw1.dc)

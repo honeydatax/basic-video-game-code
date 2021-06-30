@@ -217,8 +217,8 @@ public sub otxtdrwCreate(c1 as control)
 	c1.dc2=imagecreate(c1.ww,c1.hh,0,4)
 	c1.dc3=imagecreate(c1.ww,c1.hh,0,4)
 	scalex=c1.ww/c1.w
-	scaley=c1.ww/c1.w
-	draw string c1.dc,(5,5),c1.caption,c1.colors
+	scaley=c1.hh/c1.h
+	draw string c1.dc,(1,1),c1.caption,c1.colors
 	for yy=c1.h-1 to 0 step -1
 		for xx=c1.w-1 to 0 step -1
 			p=(point(xx,yy,c1.dc))
@@ -278,8 +278,8 @@ public sub txtdrwCreate(c1 as control)
 	c1.dc2=imagecreate(c1.ww,c1.hh,0,4)
 	c1.dc3=imagecreate(c1.ww,c1.hh,0,4)
 	scalex=c1.ww/c1.w
-	scaley=c1.ww/c1.w
-	draw string c1.dc,(5,5),c1.caption,c1.colors
+	scaley=c1.hh/c1.h
+	draw string c1.dc,(1,1),c1.caption,c1.colors
 	for yy=c1.h-1 to 0 step -1
 		for xx=c1.w-1 to 0 step -1
 			p=(point(xx,yy,c1.dc))
