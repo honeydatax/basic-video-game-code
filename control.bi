@@ -20,6 +20,7 @@ public type control
 	count as integer
 	dc as any ptr
 	dc2 as any ptr
+	dc3 as any ptr
 	on_check as sub(as control)
 	on_checks as sub(()as control)
 	on_click as sub
@@ -256,11 +257,13 @@ public sub otxtdrwCreate(c1 as control)
 	dim xx as integer
 	dim yy as integer
 	dim p as integer
+	dim p2 as integer
 	dim scalex as integer
 	dim scaley as integer
 	dim x as integer
 	c1.dc=imagecreate(c1.w,c1.h,0,4)
 	c1.dc2=imagecreate(c1.ww,c1.hh,0,4)
+	c1.dc3=imagecreate(c1.ww,c1.hh,0,4)
 	scalex=c1.ww/c1.w
 	scaley=c1.ww/c1.w
 	draw string c1.dc,(5,5),c1.caption,c1.colors
@@ -270,10 +273,20 @@ public sub otxtdrwCreate(c1 as control)
 			if p<>0 then line c1.dc2,(xx*scalex,yy*scaley)-((xx+1)*scalex,(yy+1)*scaley),p,bf
 		next
 	next
+	line c1.dc3,(0,0)-(c1.ww,c1.hh),0,bf
 	for xx=0 to c1.ww step c1.avalue
-		line c1.dc2,(xx,0)-(xx+c1.avalue,c1.hh),0
-		line c1.dc2,(xx,0)-(xx-c1.avalue,c1.hh),0
+		line c1.dc3,(xx,0)-(xx+c1.avalue,c1.hh),c1.value
+		line c1.dc3,(xx,0)-(xx-c1.avalue,c1.hh),c1.value
 	next 
+	for yy=0 to c1.hh
+		for xx=0 to c1.ww
+			p=(point(xx,yy,c1.dc2))
+			p2=(point(xx,yy,c1.dc3))
+			if p<>0 then 
+				if p2<>0 then pset(xx,yy),c1.value
+			end if
+		next
+	next
 	c1.on_check=procptr(otxtdrwcheck())
 	c1.redraw=procptr(otxtdrwRedraw())
 end sub
