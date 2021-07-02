@@ -172,6 +172,67 @@ end sub
 
 
 
+
+
+
+
+
+
+
+
+
+
+public sub gradienteRedraw(c1 as control)
+	put (c1.x,c1.y),c1.dc,pset
+end sub
+
+public sub gradienteCheck(c1 as control)
+	dim xx as integer
+	dim yy as integer
+	dim bb as integer
+	dim res as integer
+	res=getmouse(xx,yy,,bb)
+	if bb=1 then
+		if xx>c1.x and yy>c1.y and xx<c1.x+c1.ww and yy<c1.y+c1.hh then
+			c1.on_click()
+		end if
+	end if
+end sub 
+
+public sub gradienteCreate(c1 as control)
+	dim xx as integer
+	dim yy as integer
+	dim p as integer
+	dim p2 as integer
+	dim scalex as integer
+	dim scaley as integer
+	dim x as integer
+	c1.dc=imagecreate(c1.w,c1.h,c1.bcolor,32)
+	line c1.dc,(0,0)-(c1.w,c1.h),c1.bcolor,bf
+	if c1.w<255 then
+		scalex=255000/c1.w
+	else
+		scalex=c1.h*1000/255
+	end if
+	if c1.h<255 then
+		scaley=255000/c1.h
+	else
+		scaley=c1.h*1000/255
+	end if
+	for yy=0 to c1.h
+		line c1.dc,(0,yy)-(c1.w,yy),rgb(scaley*yy/1000,0,scaley*yy/1000)
+	next yy
+	c1.on_check=procptr(gradientecheck())
+	c1.redraw=procptr(gradienteRedraw())
+end sub
+
+
+
+
+
+
+
+
 public sub buttonUp()
 	dim xx as integer
 	dim yy as integer
@@ -186,8 +247,8 @@ end sub
 
 
 public sub on_start(colors as integer)
-	screenres 640,480,4
-	line (0,0)-(640,480),colors,bf
+	screenres 320,200,32
+	line (0,0)-(320,200),colors,bf
 end sub 
 
 
