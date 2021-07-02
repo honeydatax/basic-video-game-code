@@ -209,16 +209,9 @@ public sub gradienteCreate(c1 as control)
 	dim x as integer
 	c1.dc=imagecreate(c1.w,c1.h,c1.bcolor,32)
 	line c1.dc,(0,0)-(c1.w,c1.h),c1.bcolor,bf
-	if c1.w<255 then
+	
 		scalex=255000/c1.w
-	else
-		scalex=c1.h*1000/255
-	end if
-	if c1.h<255 then
 		scaley=255000/c1.h
-	else
-		scaley=c1.h*1000/255
-	end if
 	for yy=0 to c1.h
 		line c1.dc,(0,yy)-(c1.w,yy),rgb(scaley*yy/1000,0,scaley*yy/1000)
 	next yy
