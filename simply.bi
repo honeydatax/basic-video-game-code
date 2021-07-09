@@ -142,6 +142,50 @@ end sub
 
 
 
+public sub txtRedraw(c1 as control)
+	dim n as integer
+	dim s as string
+	dim ss as string
+	dim xx as integer
+	dim yy as integer
+	dim p as integer
+	line c1.dc,(0,0)-(c1.w,c1.h),c1.bcolor,bf
+	n=1
+	ss=c1.caption
+	yy=0
+	while n<>0
+		n=instr(ss,chr(13)+chr(10))
+		s=ss
+		if n>0 then
+			s=mid(ss,1,n-1)
+			ss=mid(ss,n+2)
+		end if
+		draw string c1.dc,(1,yy),s,c1.colors
+		yy=yy+9
+	wend
+		put (c1.x,c1.y),c1.dc,pset
+end sub
+
+public sub txtCheck(c1 as control)
+	dim xx as integer
+	dim yy as integer
+	dim bb as integer
+	dim res as integer
+	res=getmouse(xx,yy,,bb)
+	if bb=1 then
+		if xx>c1.x and yy>c1.y and xx<c1.x+c1.w and yy<c1.y+c1.h then
+			c1.on_click()
+		end if
+	end if
+end sub 
+
+public sub txtCreate(c1 as control)
+	c1.dc=imagecreate(c1.w,c1.h,0,4)
+	c1.on_check=procptr(txtCheck())
+	c1.redraw=procptr(txtRedraw())
+end sub
+
+
 
 
 
