@@ -104,6 +104,49 @@ public sub backCreate(c1 as control)
 	c1.redraw=procptr(backRedraw())
 end sub
 
+
+
+public sub msgboxRedraw(c1 as control)
+	dim xx as integer
+	dim yy as integer
+	dim p as integer
+	line c1.dc,(0,0)-(c1.w,c1.h),c1.bcolor,bf
+	draw string c1.dc,(1,1),c1.caption,c1.colors
+	if c1.value=0 then
+		put (c1.x,c1.y),c1.dc,pset
+	else
+		put (c1.x,c1.y),c1.dc2,pset
+	end if
+end sub
+
+public sub msgboxCheck(c1 as control)
+	dim xx as integer
+	dim yy as integer
+	dim bb as integer
+	dim res as integer
+	res=getmouse(xx,yy,,bb)
+	if bb=1 then
+		if xx>c1.x and yy>c1.y and xx<c1.x+c1.w and yy<c1.y+c1.h then
+			c1.on_click()
+		end if
+	end if
+end sub 
+
+public sub msgboxCreate(c1 as control)
+	c1.dc=imagecreate(c1.w,c1.h,0,4)
+	c1.dc2=imagecreate(c1.w,c1.h,0,4)
+	get (c1.x,c1.y)-(c1.x+c1.w-1,c1.y+c1.h-1),c1.dc2
+	c1.on_check=procptr(msgboxCheck())
+	c1.redraw=procptr(msgboxRedraw())
+end sub
+
+
+
+
+
+
+
+
 public sub buttonUp()
 	dim xx as integer
 	dim yy as integer
